@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineCharacter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
+            app:srcCompat="@drawable/ic_image"
             android:contentDescription="@string/iv_shows_image_charecater" />
 
         <androidx.constraintlayout.widget.Guideline
