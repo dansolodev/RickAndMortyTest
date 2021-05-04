@@ -61,3 +61,6 @@ vcs.xml
 
 # Android Profiling
 *.hprof
+
+.DS_Store
+
