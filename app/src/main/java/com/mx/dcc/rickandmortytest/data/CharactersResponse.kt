@@ -7,6 +7,9 @@ data class CharactersResponse(
     @SerializedName("id")
     @Expose
     val id: String,
+    @SerializedName("image")
+    @Expose
+    val image: String,
     @SerializedName("name")
     @Expose
     val name: String,

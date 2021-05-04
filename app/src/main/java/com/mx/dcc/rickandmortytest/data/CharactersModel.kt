@@ -1,10 +1,11 @@
 package com.mx.dcc.rickandmortytest.data
 
 data class CharactersModel(
-    val id: String? = null,
-    val image: String? = null,
-    val name: String? = null,
-    val status: String? = null,
-    val species: String? = null,
-    val origin: String? = null
+    val id: String,
+    val image: String,
+    val name: String,
+    val status: String,
+    val species: String,
+    val origin: String,
+    val urlOrigin: String
 )

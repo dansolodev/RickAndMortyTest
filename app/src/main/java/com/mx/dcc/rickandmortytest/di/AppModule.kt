@@ -1,6 +1,8 @@
 package com.mx.dcc.rickandmortytest.di
 
 import com.mx.dcc.rickandmortytest.BuildConfig
+import com.mx.dcc.rickandmortytest.network.CharactersApi
+import com.mx.dcc.rickandmortytest.network.mappers.NetworkMapper
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -31,6 +33,18 @@ class AppModule {
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCharactersApi(retrofit: Retrofit.Builder): CharactersApi {
+        return retrofit.build().create(CharactersApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNetworkMapper(): NetworkMapper {
+        return NetworkMapper()
     }
 
 }
