@@ -19,7 +19,7 @@ constructor(
     suspend fun getCharacters(): Flow<DataState<List<CharactersModel>>> = flow {
         emit(DataState.Loading)
         try {
-            val charactersResponse: List<CharactersResponse> = charactersApi.getCharacters()
+            val charactersResponse: List<CharactersResponse> = charactersApi.getCharacters().results
             val characters: List<CharactersModel> = networkMapper.fromEntityLis(charactersResponse)
             // TODO("Falta el cache con room")
             emit(DataState.Success(characters))

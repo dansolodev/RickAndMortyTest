@@ -5,10 +5,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.mx.dcc.rickandmortytest.R
+import com.mx.dcc.rickandmortytest.data.CharactersModel
 import com.mx.dcc.rickandmortytest.databinding.ActivityMainBinding
 import com.mx.dcc.rickandmortytest.ui.main.CharactersStateEvent
 import com.mx.dcc.rickandmortytest.ui.main.CharactersViewModel
+import com.mx.dcc.rickandmortytest.ui.main.adapter.CharactersAdapter
 import com.mx.dcc.rickandmortytest.utils.DataState
+import com.mx.dcc.rickandmortytest.utils.shoMessageToast
 import com.mx.dcc.rickandmortytest.viewmodels.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -17,8 +21,8 @@ class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProviderFactory
-    private lateinit var viewModel:CharactersViewModel
-
+    private lateinit var viewModel: CharactersViewModel
+    private lateinit var adapter: CharactersAdapter
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,25 +35,37 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun setObservers() {
-        viewModel.dataState.observe(this) { dataState ->
-            when (dataState) {
-                is DataState.Loading -> showProgressBar(true)
-                is DataState.Error -> {
-                    showProgressBar(false)
-                    Toast.makeText(this@MainActivity, dataState.exception.localizedMessage, Toast.LENGTH_LONG).show()
-                }
-                is DataState.Success -> {
-                    showProgressBar(false)
-                    Log.d("DATA-API: ", "${dataState.data}")
+        viewModel.dataState.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { dataState ->
+                when (dataState) {
+                    is DataState.Loading -> showProgressBar(true)
+                    is DataState.Error -> {
+                        showProgressBar(false)
+                        this@MainActivity.shoMessageToast(
+                            dataState.exception.localizedMessage
+                                ?: getString(R.string.general_error_message),
+                            Toast.LENGTH_LONG
+                        )
+                    }
+                    is DataState.Success -> {
+                        showProgressBar(false)
+                        setCharacters(dataState.data)
+                    }
                 }
             }
         }
+
     }
 
     private fun showProgressBar(show: Boolean) {
-        with(binding.progressBar) {
-            if (show) View.VISIBLE else View.GONE
-        }
+        binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun setCharacters(items: List<CharactersModel>) {
+        adapter = CharactersAdapter {}
+        adapter.setCharacters(items)
+        binding.recyclerViewCharacters.visibility = View.VISIBLE
+        binding.recyclerViewCharacters.adapter = adapter
     }
 
 }

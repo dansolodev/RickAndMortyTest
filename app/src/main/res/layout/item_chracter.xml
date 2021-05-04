@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:elevation="6dp"
     app:cardCornerRadius="8dp">
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintGuide_percent="0.35"
+            app:layout_constraintGuide_percent="0.30"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -76,10 +76,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textViewName"
             app:layout_constraintStart_toStartOf="@+id/textViewName"
             app:layout_constraintTop_toBottomOf="@+id/textViewStatus"
-            tools:text="Origen: Earth (C-137)"/>
+            tools:text="Origen: Earth (C-137)" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

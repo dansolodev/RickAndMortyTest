@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mx.dcc.rickandmortytest.data.CharactersModel
 import com.mx.dcc.rickandmortytest.repository.CharactersRepository
 import com.mx.dcc.rickandmortytest.utils.DataState
+import com.mx.dcc.rickandmortytest.utils.Event
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -16,10 +17,11 @@ class CharactersViewModel
 @Inject
 constructor(
     private val repository: CharactersRepository
-) : ViewModel(){
+) : ViewModel() {
 
-    private val _dataState: MutableLiveData<DataState<List<CharactersModel>>> = MutableLiveData()
-    val dataState: LiveData<DataState<List<CharactersModel>>>
+    private val _dataState: MutableLiveData<Event<DataState<List<CharactersModel>>>> =
+        MutableLiveData()
+    val dataState: LiveData<Event<DataState<List<CharactersModel>>>>
         get() = _dataState
 
     fun setStateEvent(stateEvent: CharactersStateEvent) {
@@ -27,7 +29,7 @@ constructor(
             when (stateEvent) {
                 is CharactersStateEvent.GetCharactersEvent -> {
                     repository.getCharacters().collect { dataState ->
-                        _dataState.value = dataState
+                        _dataState.value = Event(dataState)
                     }
                 }
             }
@@ -37,5 +39,5 @@ constructor(
 }
 
 sealed class CharactersStateEvent {
-    object  GetCharactersEvent: CharactersStateEvent()
+    object GetCharactersEvent : CharactersStateEvent()
 }
