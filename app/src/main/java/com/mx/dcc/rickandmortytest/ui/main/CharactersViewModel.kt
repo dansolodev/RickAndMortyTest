@@ -1,16 +1,12 @@
 package com.mx.dcc.rickandmortytest.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.mx.dcc.rickandmortytest.data.CharactersModel
 import com.mx.dcc.rickandmortytest.repository.CharactersRepository
-import com.mx.dcc.rickandmortytest.utils.DataState
-import com.mx.dcc.rickandmortytest.utils.Event
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CharactersViewModel
@@ -19,25 +15,18 @@ constructor(
     private val repository: CharactersRepository
 ) : ViewModel() {
 
-    private val _dataState: MutableLiveData<Event<DataState<List<CharactersModel>>>> =
-        MutableLiveData()
-    val dataState: LiveData<Event<DataState<List<CharactersModel>>>>
-        get() = _dataState
+    private var currentResult: Flow<PagingData<CharactersModel>>? = null
 
-    fun setStateEvent(stateEvent: CharactersStateEvent) {
-        viewModelScope.launch {
-            when (stateEvent) {
-                is CharactersStateEvent.GetCharactersEvent -> {
-                    repository.getCharacters().collect { dataState ->
-                        _dataState.value = Event(dataState)
-                    }
-                }
-            }
+    fun getCharacters(): Flow<PagingData<CharactersModel>> {
+        val lastResult = currentResult
+        if (lastResult != null) {
+            return lastResult
         }
+        val newResult: Flow<PagingData<CharactersModel>> = repository.getCharacters()
+            .cachedIn(viewModelScope)
+
+        currentResult = newResult
+        return newResult
     }
 
-}
-
-sealed class CharactersStateEvent {
-    object GetCharactersEvent : CharactersStateEvent()
 }
