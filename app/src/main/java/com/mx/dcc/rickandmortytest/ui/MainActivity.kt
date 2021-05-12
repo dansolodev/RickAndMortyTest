@@ -1,12 +1,16 @@
 package com.mx.dcc.rickandmortytest.ui
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.mx.dcc.rickandmortytest.databinding.ActivityMainBinding
 import com.mx.dcc.rickandmortytest.ui.main.CharactersViewModel
 import com.mx.dcc.rickandmortytest.ui.main.adapter.CharactersAdapter
+import com.mx.dcc.rickandmortytest.ui.main.adapter.CharactersLoadStateAdapter
+import com.mx.dcc.rickandmortytest.utils.showMessageToast
 import com.mx.dcc.rickandmortytest.viewmodels.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.Job
@@ -57,8 +61,13 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun initAdapter() {
-        adapter = CharactersAdapter {}
-        binding.recyclerViewCharacters.adapter = adapter
+        adapter = CharactersAdapter { character ->
+            showMessageToast(character.name)
+        }
+        binding.recyclerViewCharacters.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = CharactersLoadStateAdapter { adapter.retry() },
+            footer = CharactersLoadStateAdapter { adapter.retry() }
+        )
     }
 
 }

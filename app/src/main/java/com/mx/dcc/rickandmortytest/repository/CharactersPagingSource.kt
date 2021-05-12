@@ -33,6 +33,7 @@ class CharactersPagingSource(
         return try {
             val response = service.getCharacters(position)
             val charactersResponse = response.results
+            // TODO: Falta revisar el cache con room
             val characters: List<CharactersModel> = networkMapper.fromEntityLis(charactersResponse)
             val nextKey = if (characters.isEmpty()) {
                 null

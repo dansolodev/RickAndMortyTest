@@ -9,4 +9,5 @@
     <string name="item_unknown_origin">Origin: \?</string>
     <string name="iv_shows_image_charecater">Shows image charecater</string>
     <string name="general_error_message">Something went wrong, please try again later</string>
+    <string name="retry">Retry</string>
 </resources>
