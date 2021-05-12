@@ -13,5 +13,5 @@ fun ImageView.loadImageByURL(url: String, context: Context) =
         .error(R.drawable.ic_broken_image)
         .into(this)
 
-fun Context.shoMessageToast(message: String, duration: Int = Toast.LENGTH_SHORT) =
+fun Context.showMessageToast(message: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, message, duration).show()

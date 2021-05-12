@@ -1,12 +1,12 @@
 package com.mx.dcc.rickandmortytest.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.mx.dcc.rickandmortytest.data.CharactersModel
-import com.mx.dcc.rickandmortytest.data.CharactersResponse
 import com.mx.dcc.rickandmortytest.network.CharactersApi
 import com.mx.dcc.rickandmortytest.network.mappers.NetworkMapper
-import com.mx.dcc.rickandmortytest.utils.DataState
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CharactersRepository
@@ -16,17 +16,18 @@ constructor(
     private val networkMapper: NetworkMapper
 ) {
 
-    suspend fun getCharacters(): Flow<DataState<List<CharactersModel>>> = flow {
-        emit(DataState.Loading)
-        try {
-            val charactersResponse: List<CharactersResponse> = charactersApi.getCharacters().results
-            val characters: List<CharactersModel> = networkMapper.fromEntityLis(charactersResponse)
-            // TODO("Falta el cache con room")
-            emit(DataState.Success(characters))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emit(DataState.Error(e))
-        }
+    fun getCharacters(): Flow<PagingData<CharactersModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {CharactersPagingSource(service = charactersApi, networkMapper)}
+        ).flow
+    }
+
+    companion object {
+        internal const val NETWORK_PAGE_SIZE = 50
     }
 
 }
