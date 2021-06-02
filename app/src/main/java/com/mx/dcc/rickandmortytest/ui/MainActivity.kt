@@ -2,9 +2,12 @@ package com.mx.dcc.rickandmortytest.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.mx.dcc.rickandmortytest.databinding.ActivityMainBinding
 import com.mx.dcc.rickandmortytest.ui.main.CharactersViewModel
@@ -39,6 +42,7 @@ class MainActivity : DaggerAppCompatActivity() {
         initAdapter()
         getCharacters()
         initCharacters()
+        binding.buttonMainRetry.setOnClickListener { adapter.retry() }
     }
 
     private fun initCharacters() {
@@ -68,6 +72,43 @@ class MainActivity : DaggerAppCompatActivity() {
             header = CharactersLoadStateAdapter { adapter.retry() },
             footer = CharactersLoadStateAdapter { adapter.retry() }
         )
+        adapter.addLoadStateListener { loadState ->
+            // show empty list
+            val isEmptyList = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+            showEmptyList(isEmptyList)
+            handlerUIBy(loadState)
+        }
+    }
+
+    private fun handlerUIBy(loadState: CombinedLoadStates) {
+        // Only show the list if refresh succeeds.
+        binding.recyclerViewCharacters.isVisible = loadState.source.refresh is LoadState.NotLoading
+        // Show loading spinner during initial load or refresh
+        binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+        // Show the retry state if initial load or refresh fails.
+        binding.textViewMainError.isVisible = loadState.source.refresh is LoadState.Error
+        binding.buttonMainRetry.isVisible = loadState.source.refresh is LoadState.Error
+        showError(loadState)
+    }
+
+    private fun showError(loadState: CombinedLoadStates) {
+        val errorState = loadState.source.append as? LoadState.Error
+            ?: loadState.source.prepend as? LoadState.Error
+            ?: loadState.append as? LoadState.Error
+            ?: loadState.prepend as? LoadState.Error
+        errorState?.let {
+            showMessageToast("\uD83D\uDE28 Wooops ${it.error}", Toast.LENGTH_LONG)
+        }
+    }
+
+    private fun showEmptyList(show: Boolean) {
+        if (show) {
+            binding.emptyList.visibility = View.VISIBLE
+            binding.recyclerViewCharacters.visibility = View.GONE
+        } else {
+            binding.emptyList.visibility = View.GONE
+            binding.recyclerViewCharacters.visibility = View.VISIBLE
+        }
     }
 
 }
