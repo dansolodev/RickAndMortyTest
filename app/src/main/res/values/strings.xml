@@ -7,7 +7,9 @@
     <string name="item_unknown_specie">Specie: \?</string>
     <string name="item_origin">Origin: %1$s</string>
     <string name="item_unknown_origin">Origin: \?</string>
-    <string name="iv_shows_image_charecater">Shows image charecater</string>
+    <string name="item_location">Current location: %1$s</string>
+    <string name="item_unknown_location">Current location: \?</string>
+    <string name="iv_shows_image_character">Shows image character</string>
     <string name="no_results">No results 😓</string>
     <string name="general_error_message">Something went wrong, please try again later</string>
     <string name="retry">Retry</string>

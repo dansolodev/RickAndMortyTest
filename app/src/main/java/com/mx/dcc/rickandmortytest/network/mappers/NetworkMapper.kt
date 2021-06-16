@@ -2,6 +2,7 @@ package com.mx.dcc.rickandmortytest.network.mappers
 
 import com.mx.dcc.rickandmortytest.data.CharactersModel
 import com.mx.dcc.rickandmortytest.data.CharactersResponse
+import com.mx.dcc.rickandmortytest.data.LocationResponse
 import com.mx.dcc.rickandmortytest.data.OriginResponse
 import com.mx.dcc.rickandmortytest.utils.EntityMapper
 import javax.inject.Inject
@@ -18,7 +19,9 @@ constructor() : EntityMapper<CharactersResponse, CharactersModel> {
             status = entity.status,
             species = entity.species,
             origin = entity.origin.name,
-            urlOrigin = entity.origin.url
+            urlOrigin = entity.origin.url,
+            location = entity.location.name,
+            urlLocation = entity.location.url
         )
     }
 
@@ -31,6 +34,10 @@ constructor() : EntityMapper<CharactersResponse, CharactersModel> {
             species = domainModel.species,
             origin = OriginResponse(
                 domainModel.origin,
+                domainModel.urlOrigin
+            ),
+            location = LocationResponse(
+                domainModel.location,
                 domainModel.urlOrigin
             )
         )

@@ -21,5 +21,8 @@ data class CharactersResponse(
     val species: String,
     @SerializedName("origin")
     @Expose
-    val origin: OriginResponse
+    val origin: OriginResponse,
+    @SerializedName("location")
+    @Expose
+    val location: LocationResponse
 )

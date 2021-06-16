@@ -11,5 +11,7 @@ data class CharactersModel(
     val status: String,
     val species: String,
     val origin: String,
-    val urlOrigin: String
+    val urlOrigin: String,
+    val location: String,
+    val urlLocation: String
 ) : Parcelable

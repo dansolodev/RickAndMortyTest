@@ -52,6 +52,7 @@ class DetailCharacterActivity : DaggerAppCompatActivity() {
             textViewStatusDetail.text = getString(R.string.item_status, data.status)
             textViewSpecieDetail.text = getString(R.string.item_specie, data.species)
             textViewOriginDetail.text = getString(R.string.item_origin, data.origin)
+            textViewCurrentLocationDetail.text = getString(R.string.item_location, data.location)
         }
     }
 

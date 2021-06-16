@@ -24,23 +24,33 @@
         style="@android:style/TextAppearance.Material.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/text_view_status_detail"
         app:layout_constraintStart_toStartOf="@+id/text_view_status_detail"
         app:layout_constraintTop_toBottomOf="@+id/text_view_status_detail"
-        tools:text="Specie: Human"/>
+        tools:text="Specie: Human" />
 
     <TextView
         android:id="@+id/text_view_origin_detail"
         style="@android:style/TextAppearance.Material.Body2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/text_view_specie_detail"
         app:layout_constraintStart_toStartOf="@+id/text_view_specie_detail"
         app:layout_constraintTop_toBottomOf="@+id/text_view_specie_detail"
         tools:text="Origin: Earth (C-137)" />
 
+    <TextView
+        android:id="@+id/text_view_current_location_detail"
+        style="@android:style/TextAppearance.Material.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_origin_detail"
+        app:layout_constraintStart_toStartOf="@+id/text_view_origin_detail"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_origin_detail"
+        tools:text="Origin: Earth (Replacement Dimension)" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -55,6 +65,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_origin_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_current_location_detail" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
