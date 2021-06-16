@@ -3,6 +3,7 @@ package com.mx.dcc.rickandmortytest.di
 import com.mx.dcc.rickandmortytest.BuildConfig
 import com.mx.dcc.rickandmortytest.network.CharactersApi
 import com.mx.dcc.rickandmortytest.network.mappers.NetworkMapper
+import com.mx.dcc.rickandmortytest.utils.ApplicationUtils
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -45,6 +46,12 @@ class AppModule {
     @Provides
     fun provideNetworkMapper(): NetworkMapper {
         return NetworkMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideApplicationsUtils(): ApplicationUtils {
+        return ApplicationUtils()
     }
 
 }

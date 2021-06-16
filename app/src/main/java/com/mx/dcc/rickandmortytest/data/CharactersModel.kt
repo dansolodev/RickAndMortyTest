@@ -1,5 +1,9 @@
 package com.mx.dcc.rickandmortytest.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class CharactersModel(
     val id: String,
     val image: String,
@@ -8,4 +12,4 @@ data class CharactersModel(
     val species: String,
     val origin: String,
     val urlOrigin: String
-)
+) : Parcelable

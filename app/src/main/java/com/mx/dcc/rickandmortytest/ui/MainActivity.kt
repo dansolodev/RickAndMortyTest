@@ -1,5 +1,6 @@
 package com.mx.dcc.rickandmortytest.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.mx.dcc.rickandmortytest.databinding.ActivityMainBinding
+import com.mx.dcc.rickandmortytest.ui.detail.DetailCharacterActivity
 import com.mx.dcc.rickandmortytest.ui.main.CharactersViewModel
 import com.mx.dcc.rickandmortytest.ui.main.adapter.CharactersAdapter
 import com.mx.dcc.rickandmortytest.ui.main.adapter.CharactersLoadStateAdapter
+import com.mx.dcc.rickandmortytest.utils.Constants
 import com.mx.dcc.rickandmortytest.utils.showMessageToast
 import com.mx.dcc.rickandmortytest.viewmodels.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
@@ -66,7 +69,15 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun initAdapter() {
         adapter = CharactersAdapter { character ->
-            showMessageToast(character.name)
+
+            val intent = Intent(
+                this@MainActivity,
+                DetailCharacterActivity::class.java
+            ).apply {
+                putExtra(Constants.NAME_EXTRA_CHARACTER, character)
+            }
+            startActivity(intent)
+
         }
         binding.recyclerViewCharacters.adapter = adapter.withLoadStateHeaderAndFooter(
             header = CharactersLoadStateAdapter { adapter.retry() },
