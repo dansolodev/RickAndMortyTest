@@ -1,4 +1,4 @@
-package com.mx.dcc.rickandmortytest.repository
+package com.mx.dcc.rickandmortytest.repository.main
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

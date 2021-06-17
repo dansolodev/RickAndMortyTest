@@ -1,11 +1,11 @@
-package com.mx.dcc.rickandmortytest.repository
+package com.mx.dcc.rickandmortytest.repository.main
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.mx.dcc.rickandmortytest.data.CharactersModel
 import com.mx.dcc.rickandmortytest.network.CharactersApi
 import com.mx.dcc.rickandmortytest.network.mappers.NetworkMapper
-import com.mx.dcc.rickandmortytest.repository.CharactersRepository.Companion.NETWORK_PAGE_SIZE
+import com.mx.dcc.rickandmortytest.repository.main.CharactersRepository.Companion.NETWORK_PAGE_SIZE
 import retrofit2.HttpException
 import java.io.IOException
 

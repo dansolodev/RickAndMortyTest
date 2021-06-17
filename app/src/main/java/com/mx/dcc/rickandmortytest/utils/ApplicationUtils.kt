@@ -22,4 +22,9 @@ class ApplicationUtils {
         }
     }
 
+    fun subsIdeEpisodeFromUrl(url: String): String {
+        val segments = url.split("/")
+        return segments[segments.size - 1]
+    }
+
 }

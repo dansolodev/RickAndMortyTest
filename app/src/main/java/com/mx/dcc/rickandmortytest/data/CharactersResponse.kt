@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class CharactersResponse(
     @SerializedName("id")
     @Expose
-    val id: String,
+    val id: Int,
     @SerializedName("image")
     @Expose
     val image: String,

@@ -53,7 +53,7 @@
         tools:text="Origin: Earth (Replacement Dimension)" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progress_bar_detail"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,8 +65,54 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_episodes_header" />
+
+    <TextView
+        android:id="@+id/text_view_episodes_header"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/episodes"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_current_location_detail"
+        app:layout_constraintStart_toStartOf="@+id/text_view_current_location_detail"
         app:layout_constraintTop_toBottomOf="@+id/text_view_current_location_detail" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_episodes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_episodes_header"
+        tools:listitem="@layout/item_episode" />
+
+    <TextView
+        android:id="@+id/text_view_error_episodes"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="@string/no_results"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_episodes_header" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

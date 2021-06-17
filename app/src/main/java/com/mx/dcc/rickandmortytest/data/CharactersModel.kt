@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CharactersModel(
-    val id: String,
+    val id: Int,
     val image: String,
     val name: String,
     val status: String,
