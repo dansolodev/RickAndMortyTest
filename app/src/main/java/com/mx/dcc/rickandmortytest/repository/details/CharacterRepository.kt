@@ -1,5 +1,6 @@
 package com.mx.dcc.rickandmortytest.repository.details
 
+import android.util.Log
 import com.mx.dcc.rickandmortytest.data.detail.CharacterModel
 import com.mx.dcc.rickandmortytest.network.CharactersApi
 import com.mx.dcc.rickandmortytest.network.mappers.CharacterMapper
@@ -15,6 +16,8 @@ constructor(
     private val mapper: CharacterMapper
 ) {
 
+    private val TAG = "CharacterRepository"
+
     fun getEpisodes(ideCharacter: Int): Flow<DataState<CharacterModel>> = flow {
         emit(DataState.Loading)
         try {
@@ -25,6 +28,10 @@ constructor(
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }
+    }
+
+    fun getEpisodeDetail(idEpisode: Int) {
+
     }
 
 }
